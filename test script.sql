@@ -10,3 +10,5 @@ select * from Customers
 	where (city = 'Jersey city');
 */
 
+select count(state) from Customers
+	where (state = 'OH') or (state = 'KY')
