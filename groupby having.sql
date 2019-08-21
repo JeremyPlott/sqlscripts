@@ -23,16 +23,27 @@ select
 	order by [Sales Total] desc
 */
 
+/*
 --A = top 20%, 80% of sales.
 --B = mid 60%, 15% of sales.
 --C = bot 20%,  5% of sales.
 --Show customers who have sales > avg sales of all customers
 
-select
-	*
+select * from Customers
 
-	from Customers
-
-		where customers.sales > (select avg(customers.sales) from customers)
+	where customers.sales > (select avg(customers.sales) from customers)
 
 	order by customers.sales desc
+*/
+
+
+
+/*
+--Using top 3 and where __ in () clause.
+--select top 3 * from Customers order by customers.sales desc
+
+select * from customers 
+	where id in (
+				select id from customers where name in ('kroger', 'nationwide', 'abercrombie fitch')
+				)
+*/
