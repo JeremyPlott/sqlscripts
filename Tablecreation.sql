@@ -41,3 +41,20 @@ create table TechTrackTopics (
 	TechTopicsId int not null foreign key references TechTopics(Id)
 );
 */
+
+/*
+create table Contacts (
+	Id int not null primary key identity(1,1),
+	FirstName nvarchar(30) not null,
+	LastName nvarchar(30) null,
+	Phone nvarchar(20) not null,
+	Email nvarchar(255) null,
+	Address nvarchar(255) null,
+	Relationship nvarchar(255) not null,
+	City nvarchar(50) null,
+	State nvarchar(50) null,
+	Birthday datetime null,
+	FavColor nvarchar(80) null,
+	Notes nvarchar(500) null
+);
+*/
