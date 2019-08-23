@@ -1,11 +1,7 @@
-use master;
-go
-drop database if exists PRSdb;
-go
+
 create database PRSdb;
 go
-use PRSdb;
-go
+
 
 
 /*
@@ -27,8 +23,8 @@ create table Users (
 		Lastname nvarchar(30) not null,
 		Phone nvarchar(12) null,
 		Email nvarchar(255) null,
-		IsReviewer bit default(1),
-		IsAdmin bit default(1)
+		IsReviewer bit default(1) not null,
+		IsAdmin bit default(1) not null                   --everyone gets to be an admin :)
 	);
 go
 insert into Users (Username, Password, Firstname, Lastname, Phone, Email, IsReviewer, IsAdmin)
@@ -77,7 +73,7 @@ create table Products (
 		Name nvarchar(30) not null,
 		Price decimal(11,2) not null,
 		Unit nvarchar(30) not null,
-		PhotoPath nvarchar(255) null,
+		PhotoPath nvarchar(255) null,    --Good idea to name the jpeg with the partnumber (unique)
 		VendorId int foreign key references Vendors(Id) not null
 	);
 go
@@ -99,11 +95,11 @@ create table Requests (
 		Id int not null primary key identity(1,1),
 		Description nvarchar(80) not null, 
 		Justification nvarchar(80) not null,
-		RejectionReason nvarchar(80) null,
+		RejectionReason nvarchar(80) null default('-'),
 		DeliveryMode nvarchar(20) not null default('Pickup'),
 		Status nvarchar(10) not null default('NEW'),
 		Total decimal(11,2) not null default(0),
-		UserId int foreign key references Users(Id)
+		UserId int foreign key references Users(Id) not null
 	);
 go
 
@@ -111,10 +107,10 @@ insert into Requests (Description, Justification, RejectionReason, DeliveryMode,
 			values ('Lots of dino bones', 'Ran out', null, default, default, 100, 1);
 
 insert into Requests (Description, Justification, RejectionReason, DeliveryMode, Status, Total, UserId)
-			values ('Candy', 'Candy', 'We already have candy', 'REJ', 'N/A', 840, 3);
+			values ('Candy', 'Candy', 'We already have candy', '-', 'REJ', 840, 3);
 
 insert into Requests (Description, Justification, RejectionReason, DeliveryMode, Status, Total, UserId)
-			values ('Dino Bones', 'Ran out again', null, 'Drone', 'USED', 34538, 2);
+			values ('Dino Bones', 'Ran out again', null, 'Drone', 'APP', 34538, 2);
 go
 
 -----------------------------------------------REQUEST LINE TABLE-------------------------------------------------
